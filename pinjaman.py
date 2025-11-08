@@ -129,7 +129,7 @@ with tab1:
         input_processed = new_data_df.copy()
         
         # Inisialisasi semua kolom OHE yang mungkin ada dari pelatihan ke 0
-        for col in [c for c in model_features if c.startswith('person_home_ownership_')]:
+        for col in [c for col in model_features if col.startswith('person_home_ownership_')]:
              input_processed[col] = 0
 
         # Setel kolom OHE yang sesuai dari input pengguna menjadi 1
@@ -174,39 +174,39 @@ with tab2:
     col_metrics[4].metric(label="ROC-AUC Score", value=f"{METRICS['ROC-AUC Score']:.4f}")
     
     st.markdown(f"*(Metrik di atas berasal dari hasil evaluasi **Model Decision Tree** sebelumnya)*")
-...     st.markdown("---")
-...     
-...     st.subheader("Visualisasi Utama Model Decision Tree")
-... 
-...     # Visualisasi 1: Confusion Matrix
-...     st.markdown("#### 1. Confusion Matrix (Decision Tree)")
-...     st.caption("Membandingkan label sebenarnya (True Label) dengan prediksi model (Predicted Label).")
-...     cm = confusion_matrix(y_test, y_pred)
-...     
-...     fig1, ax1 = plt.subplots(figsize=(6, 6))
-...     sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', 
-...                 xticklabels=['Dibayar (0)', 'Default (1)'], 
-...                 yticklabels=['Dibayar (0)', 'Default (1)'], ax=ax1)
-...     ax1.set_title('Confusion Matrix (Decision Tree)')
-...     ax1.set_ylabel('True Label')
-...     ax1.set_xlabel('Predicted Label')
-...     st.pyplot(fig1)
-...     plt.close(fig1) # Pembersihan plot
-... 
-...     # Visualisasi 2: Feature Importances Heatmap
-...     st.markdown("#### 2. Feature Importances Heatmap (Decision Tree)")
-...     st.caption("Menunjukkan seberapa besar kontribusi setiap fitur dalam proses pengambilan keputusan model.")
-...     
-...     # Dapatkan feature importance dari model yang dilatih
-...     feature_importance = model.feature_importances_
-...     
-...     # Buat Series dan normalize/frame
-...     importance_series = pd.Series(feature_importance, index=X_train_final.columns).sort_values(ascending=False)
-...     importance_matrix = importance_series.to_frame(name='Importance').T
-...     
-...     fig2, ax2 = plt.subplots(figsize=(12, 3))
-...     sns.heatmap(importance_matrix, annot=True, fmt=".3f", cmap="YlGnBu", cbar_kws={'label': 'Kepentingan Fitur'}, ax=ax2)
-...     ax2.set_title('Feature Importances Heatmap (Decision Tree)')
-...     ax2.set_yticks([]) 
-...     st.pyplot(fig2)
+    st.markdown("---") # Baris yang menjadi sumber error (Sekarang sudah dibersihkan)
+    
+    st.subheader("Visualisasi Utama Model Decision Tree")
 
+    # Visualisasi 1: Confusion Matrix
+    st.markdown("#### 1. Confusion Matrix (Decision Tree)")
+    st.caption("Membandingkan label sebenarnya (True Label) dengan prediksi model (Predicted Label).")
+    cm = confusion_matrix(y_test, y_pred)
+    
+    fig1, ax1 = plt.subplots(figsize=(6, 6))
+    sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', 
+                xticklabels=['Dibayar (0)', 'Default (1)'], 
+                yticklabels=['Dibayar (0)', 'Default (1)'], ax=ax1)
+    ax1.set_title('Confusion Matrix (Decision Tree)')
+    ax1.set_ylabel('True Label')
+    ax1.set_xlabel('Predicted Label')
+    st.pyplot(fig1)
+    plt.close(fig1) # Pembersihan plot
+
+    # Visualisasi 2: Feature Importances Heatmap
+    st.markdown("#### 2. Feature Importances Heatmap (Decision Tree)")
+    st.caption("Menunjukkan seberapa besar kontribusi setiap fitur dalam proses pengambilan keputusan model.")
+    
+    # Dapatkan feature importance dari model yang dilatih
+    feature_importance = model.feature_importances_
+    
+    # Buat Series dan normalize/frame
+    importance_series = pd.Series(feature_importance, index=X_train_final.columns).sort_values(ascending=False)
+    importance_matrix = importance_series.to_frame(name='Importance').T
+    
+    fig2, ax2 = plt.subplots(figsize=(12, 3))
+    sns.heatmap(importance_matrix, annot=True, fmt=".3f", cmap="YlGnBu", cbar_kws={'label': 'Kepentingan Fitur'}, ax=ax2)
+    ax2.set_title('Feature Importances Heatmap (Decision Tree)')
+    ax2.set_yticks([]) 
+    st.pyplot(fig2)
+    plt.close(fig2) # Pembersihan plot
